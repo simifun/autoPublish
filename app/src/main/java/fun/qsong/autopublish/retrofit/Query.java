@@ -3,6 +3,8 @@ package fun.qsong.autopublish.retrofit;
 import com.google.gson.JsonObject;
 
 
+import org.json.JSONObject;
+
 import fun.qsong.autopublish.gif.GifListBean;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -42,14 +44,7 @@ public class Query {
 
 
     public Observable<GifListBean> getGifFromSina(int page){
-        return server.getGifFromSina(page,10,"json","getDataJson")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io());
-    }
-
-    public Observable<String> getGifFromSina2(int page){
-        return server.getGifFromSina2(page,10,"json","getDataJson")
+        return server.getGifFromSina(page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io());

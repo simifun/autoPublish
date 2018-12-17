@@ -4,21 +4,29 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by admin on 2018/12/17.
  */
 
-public class GifListBean {
+public class GifListBean implements Serializable{
+    /*@SerializedName("status")
+    public Status status;
+    @SerializedName("total")
+    public String total;
+    @SerializedName("count")
+    public String count;*/
+
     //json数据主体
     @SerializedName("data")
-    public ArrayList<Gif> list;
+    public List<Gif> data;
 
     public static class Gif implements Serializable{
         @SerializedName("id")
         private String id;
         @SerializedName("name")
-        private int name;
+        private String name;
         @SerializedName("short_name")
         private String short_name;
         @SerializedName("img_url")
@@ -32,11 +40,11 @@ public class GifListBean {
             this.id = id;
         }
 
-        public int getName() {
+        public String getName() {
             return name;
         }
 
-        public void setName(int name) {
+        public void setName(String name) {
             this.name = name;
         }
 
@@ -57,11 +65,15 @@ public class GifListBean {
         }
     }
 
-    public ArrayList<Gif> getList() {
-        return list;
-    }
+    public static class Status implements Serializable{
+        public String code;
 
-    public void setList(ArrayList<Gif> list) {
-        this.list = list;
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
     }
 }

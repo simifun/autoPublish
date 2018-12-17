@@ -5,17 +5,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.google.gson.JsonObject;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
-import fun.qsong.autopublish.MyApplication;
-import fun.qsong.autopublish.R;
 import fun.qsong.autopublish.base.BasePresenter;
 import fun.qsong.autopublish.gif.GifListBean;
 import fun.qsong.autopublish.retrofit.Query;
-import fun.qsong.utils.util.SPUtils;
 import fun.qsong.utils.util.T;
 import io.reactivex.functions.Consumer;
 
@@ -32,19 +27,19 @@ public class MainPresenter extends BasePresenter<IMain> {
     private int page = 1;
 
     public void getGifFormSina() {
-        Query.getInstance().getGifFromSina2(page)
-                .subscribe(new Consumer<String>() {
+        Query.getInstance().getGifFromSina(page)
+                .subscribe(new Consumer<GifListBean>() {
                     @Override
-                    public void accept(String s) throws Exception {
-                        Log.e(TAG, "accept: -->"+s);
-                        T.showShort("请检查网络");
+                    public void accept(GifListBean gifListBean) throws Exception {
+                        Log.e(TAG, "accept: -->"+gifListBean);
+                        mIView.openGif(gifListBean);
+                        T.showShort("请求成功！");
                     }
                 }, new Consumer<Throwable>() {
-
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         Log.e(TAG, "throwable: -->"+throwable);
-                        T.showShort("请检查网络");
+                        T.showShort("请求失败！请检查网络！");
                     }
                 });
     }

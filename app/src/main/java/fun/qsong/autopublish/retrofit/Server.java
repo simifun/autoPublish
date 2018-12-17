@@ -3,6 +3,8 @@ package fun.qsong.autopublish.retrofit;
 
 import com.google.gson.JsonObject;
 
+import org.json.JSONObject;
+
 import fun.qsong.autopublish.gif.GifListBean;
 import io.reactivex.Observable;
 import retrofit2.http.Query;
@@ -28,9 +30,9 @@ public interface Server {
      */
     @FormUrlEncoded
     @POST("tech/gif/album.d.json")
-    Observable<GifListBean> getGifFromSina(@Query("page") int page,@Query("num") int num, @Query("format") String format,@Query("jsoncallback") String jsoncallback);
+    Observable<GifListBean> getGifFromSina2(@Query("page") int page,@Query("num") int num, @Query("format") String format,@Query("jsoncallback") String jsoncallback);
 
     @GET("tech/gif/album.d.json")
-    Observable<String> getGifFromSina2(@Query("page") int page,@Query("num") int num, @Query("format") String format,@Query("jsoncallback") String jsoncallback);
+    Observable<GifListBean> getGifFromSina(@Query("page") int page);
 
 }

@@ -1,11 +1,13 @@
 package fun.qsong.autopublish.main;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import fun.qsong.utils.util.T;
+import fun.qsong.autopublish.gif.GifActivity;
+import fun.qsong.autopublish.gif.GifListBean;
+import fun.qsong.utils.util.ActivityUtils;
 
 import fun.qsong.autopublish.R;
 import fun.qsong.autopublish.base.BaseActivity;
@@ -39,5 +41,12 @@ public class MainActivity extends BaseActivity<IMain,MainPresenter> implements I
     @Override
     public void onRunBack() {
         presenter.RunBack();
+    }
+
+    @Override
+    public void openGif(GifListBean gifListBeans) {
+        Intent intent = new Intent(this,GifActivity.class);
+        intent.putExtra("gifListBeans",gifListBeans);
+        ActivityUtils.startActivity(intent);
     }
 }
