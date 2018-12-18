@@ -42,4 +42,6 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:3.4.1"
     // BRVAH
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
 }
