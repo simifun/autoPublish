@@ -14,6 +14,9 @@ import fun.qsong.autopublish.img.ImgListBean;
 import fun.qsong.autopublish.retrofit.Query;
 import fun.qsong.utils.util.T;
 import io.reactivex.functions.Consumer;
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
+
+import static fun.qsong.autopublish.retrofit.Server.GIF_SINA;
 
 /**
  * Created by admin on 2018/12/17.
@@ -28,6 +31,7 @@ public class MainPresenter extends BasePresenter<IMain> {
     private int page = 1;
 
     public void getGifFormSina() {
+        RetrofitUrlManager.getInstance().putDomain("GIF_SINA", GIF_SINA);
         Query.getInstance().getGifFromSina(page,20)
                 .subscribe(new Consumer<GifListBean>() {
                     @Override

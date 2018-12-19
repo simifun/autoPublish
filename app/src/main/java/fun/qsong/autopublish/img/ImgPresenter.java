@@ -3,13 +3,17 @@ package fun.qsong.autopublish.img;
 import android.net.Uri;
 import android.util.Log;
 
+import org.json.JSONArray;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import fun.qsong.autopublish.base.BasePresenter;
 import fun.qsong.autopublish.gif.GifListBean;
 import fun.qsong.autopublish.retrofit.Query;
 import fun.qsong.utils.util.FileUtils;
+import fun.qsong.utils.util.GsonUtils;
 import fun.qsong.utils.util.T;
 import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
@@ -29,7 +33,8 @@ public class ImgPresenter extends BasePresenter<IImgView> {
     //发布图片类文章
     public void upload(List<MyItit> myItits) {
         MultipartBody.Part[] parts = getMultipartBodyPart(myItits);
-        Itit[] itits = getItitList(myItits);
+        MultipartBody.Part itits = getMultipartBodyItit(myItits);
+//        List<Itit> itits = getItitList(myItits);
         Query.getInstance().uploadImgFile(parts,itits)
                 .subscribe(new Consumer<ReSponseItit>() {
                     @Override
@@ -64,7 +69,7 @@ public class ImgPresenter extends BasePresenter<IImgView> {
         return null;
     }
 
-    private Itit[] getItitList(List<MyItit> myItits){
+    private MultipartBody.Part getMultipartBodyItit(List<MyItit> myItits){
         int n = myItits.size();
         if(n > 0){
             MyItit myItit;
@@ -73,8 +78,39 @@ public class ImgPresenter extends BasePresenter<IImgView> {
                 myItit = myItits.get(i);
                 itits[i] = new Itit(myItit.getText(),myItit.getTag());
             }
+            String test = null;
+            try {
+                test = GsonUtils.toJsonString(itits);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return  MultipartBody.Part.createFormData("itit", test);
+        }
+        return null;
+    }
+
+    private List<Itit> getItitList(List<MyItit> myItits){
+        int n = myItits.size();
+        if(n > 0){
+            MyItit myItit;
+            List<Itit> itits = new ArrayList<>();
+            for(int i=0;i<n;i++){
+                myItit = myItits.get(i);
+                itits.add(new Itit(myItit.getText(),myItit.getTag()));
+            }
             return itits;
         }
         return null;
+    }
+
+    private MultipartBody.Part toRequestBodyOfText (String keyStr, String value) {
+        MultipartBody.Part body = MultipartBody.Part.createFormData(keyStr, value);
+        return body;
+    }
+
+    private MultipartBody.Part toRequestBodyOfImage(String keyStr, File pFile){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), pFile);
+        MultipartBody.Part filedata = MultipartBody.Part.createFormData(keyStr, pFile.getName(), requestBody);
+        return filedata;
     }
 }

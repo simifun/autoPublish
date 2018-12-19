@@ -40,6 +40,8 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.2.0"
     implementation "com.squareup.okhttp3:logging-interceptor:3.4.1"
     implementation "com.squareup.okhttp3:okhttp:3.4.1"
+
+
     // 动态更改单例Retrofit的baseUrl 的开源框架
     implementation 'me.jessyan:retrofit-url-manager:1.4.0'
     // BRVAH

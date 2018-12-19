@@ -1,6 +1,10 @@
 package fun.qsong.autopublish.retrofit;
 
 
+import android.util.Log;
+
+import java.util.List;
+
 import fun.qsong.autopublish.gif.GifListBean;
 import fun.qsong.autopublish.img.Itit;
 import fun.qsong.autopublish.img.ReSponseItit;
@@ -14,6 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static fun.qsong.autopublish.retrofit.Server.GIF_SINA;
 import static fun.qsong.autopublish.retrofit.Server.MY_QSYX;
 
 
@@ -26,8 +31,18 @@ public class Query {
     private Server server;
 
     public Query() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                //打印retrofit日志
+                Log.i("RetrofitLog","retrofitBack = "+message);
+            }
+        });
         OkHttpClient OkHttpClient = RetrofitUrlManager.getInstance().with(new OkHttpClient.Builder())
+                .addInterceptor(loggingInterceptor)
                 .build();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MY_QSYX)
                 .client(OkHttpClient)
@@ -55,7 +70,7 @@ public class Query {
                 .unsubscribeOn(Schedulers.io());
     }
 
-    public Observable<ReSponseItit> uploadImgFile(MultipartBody.Part [] files, Itit[] itits) {
+    public Observable<ReSponseItit> uploadImgFile(MultipartBody.Part [] files, MultipartBody.Part itits) {
         return server.uploadImgFile(files, itits)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

@@ -40,4 +40,12 @@ public class Itit {
     public void setTag(int tag) {
         this.tag = tag;
     }
+
+    public String toJsonString() {
+        return "{"+
+                "imgId:"+this.imgId+","+
+                "text:"+this.text+","+
+                "tag:"+this.tag+
+                "}";
+    }
 }
