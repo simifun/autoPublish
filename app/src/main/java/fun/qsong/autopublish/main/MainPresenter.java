@@ -10,6 +10,7 @@ import java.util.TimerTask;
 
 import fun.qsong.autopublish.base.BasePresenter;
 import fun.qsong.autopublish.gif.GifListBean;
+import fun.qsong.autopublish.img.ImgListBean;
 import fun.qsong.autopublish.retrofit.Query;
 import fun.qsong.utils.util.T;
 import io.reactivex.functions.Consumer;
@@ -27,7 +28,7 @@ public class MainPresenter extends BasePresenter<IMain> {
     private int page = 1;
 
     public void getGifFormSina() {
-        Query.getInstance().getGifFromSina(page)
+        Query.getInstance().getGifFromSina(page,20)
                 .subscribe(new Consumer<GifListBean>() {
                     @Override
                     public void accept(GifListBean gifListBean) throws Exception {

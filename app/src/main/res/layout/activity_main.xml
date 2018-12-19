@@ -10,10 +10,48 @@
         android:id="@+id/gif_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="发布GIF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/img_btn"
         app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/img_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发布图片"
+        app:layout_constraintTop_toBottomOf="@id/gif_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/video_btn"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <Button
+        android:id="@+id/video_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发布视频"
+        app:layout_constraintTop_toBottomOf="@id/img_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/dz_btn"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/dz_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发布段子"
+        app:layout_constraintTop_toBottomOf="@id/video_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/notice_btn"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/notice_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发布公告"
+        app:layout_constraintTop_toBottomOf="@id/dz_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
