@@ -30,17 +30,45 @@ public class ImgPresenter extends BasePresenter<IImgView> {
         context = mIView.getActivityContext();
     }
 
-    //发布图片类文章
-    public void upload(List<MyItit> myItits) {
+    //上传文件到服务器
+    public void upload(List<MyItit> myItits,final String title) {
         MultipartBody.Part[] parts = getMultipartBodyPart(myItits);
         MultipartBody.Part itits = getMultipartBodyItit(myItits);
 //        List<Itit> itits = getItitList(myItits);
         Query.getInstance().uploadImgFile(parts,itits)
                 .subscribe(new Consumer<ReSponseItit>() {
                     @Override
-                    public void accept(ReSponseItit responseInit) throws Exception {
-                        Log.e(TAG, "throwable: -->" + responseInit);
+                    public void accept(ReSponseItit responseItit) throws Exception {
+                        publish(responseItit,title);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e(TAG, "throwable: -->" + throwable);
                         T.showShort("请求失败！请检查网络！");
+                    }
+                });
+    }
+
+    //发布文章
+    public void publish(ReSponseItit ReSponseItit,String title) {
+        if(ReSponseItit.getData().getItit() == null || ReSponseItit.getData().getItit().size() == 0){
+            T.showShort("发布内容为空！请检查！");
+            return;
+        }
+        String itits = "";
+        try {
+            itits = GsonUtils.toJsonString(ReSponseItit.getData().getItit());
+        } catch (Exception e) {
+            T.showShort("JSON转换出错！");
+            e.printStackTrace();
+        }
+        Query.getInstance().postNewImgArticle(itits,title,"组图")
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        Log.d(TAG, "Object: -->" + o);
+                        T.showShort("发布成功！"+o.toString());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -82,6 +110,7 @@ public class ImgPresenter extends BasePresenter<IImgView> {
             try {
                 test = GsonUtils.toJsonString(itits);
             } catch (Exception e) {
+                T.showShort("JSON转换出错！");
                 e.printStackTrace();
             }
             return  MultipartBody.Part.createFormData("itit", test);

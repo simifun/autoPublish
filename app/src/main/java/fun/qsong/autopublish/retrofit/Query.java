@@ -77,5 +77,10 @@ public class Query {
                 .unsubscribeOn(Schedulers.io());
     }
 
-
+    public Observable<Object> postNewImgArticle(String itits,String title,String type) {
+        return server.postNewImgArticle(itits,title,type)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io());
+    }
 }

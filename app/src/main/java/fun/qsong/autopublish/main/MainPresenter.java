@@ -28,27 +28,6 @@ public class MainPresenter extends BasePresenter<IMain> {
     private Handler handler = new MyHandler();
     /*退出app*/
     private static final int EXIT_APP = 13;
-    private int page = 1;
-
-    public void getGifFormSina() {
-        RetrofitUrlManager.getInstance().putDomain("GIF_SINA", GIF_SINA);
-        Query.getInstance().getGifFromSina(page,20)
-                .subscribe(new Consumer<GifListBean>() {
-                    @Override
-                    public void accept(GifListBean gifListBean) throws Exception {
-                        Log.e(TAG, "accept: -->"+gifListBean);
-                        mIView.openGif(gifListBean);
-                        T.showShort("请求成功！");
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.e(TAG, "throwable: -->"+throwable);
-                        T.showShort("请求失败！请检查网络！");
-                    }
-                });
-    }
-
 
     public void RunBack() {
         if (isQuit == false) {

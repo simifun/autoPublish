@@ -16,12 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/shape_home_btn"
             android:text="选择图片"/>
         <Button
             android:id="@+id/btn_upload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/shape_home_btn"
             android:text="发布图片"/>
     </LinearLayout>
 

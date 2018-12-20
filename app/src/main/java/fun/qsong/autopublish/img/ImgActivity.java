@@ -1,6 +1,7 @@
 package fun.qsong.autopublish.img;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -12,8 +13,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -27,10 +30,12 @@ import java.util.List;
 import fun.qsong.autopublish.R;
 import fun.qsong.autopublish.base.BaseActivity;
 import fun.qsong.autopublish.main.MainPresenter;
+import fun.qsong.autopublish.view.EditDialog;
 import fun.qsong.utils.util.T;
 
 import static fun.qsong.autopublish.constants.ActivityReqConstants.REQUEST_OPEN_IMGPICKER;
 import static fun.qsong.autopublish.constants.ActivityReqConstants.REQUEST_PERMISSION;
+import static fun.qsong.utils.util.T.getView;
 
 public class ImgActivity extends BaseActivity<IImgView,ImgPresenter> implements IImgView,View.OnClickListener {
     ImgAdapter imgAdapter;
@@ -59,7 +64,38 @@ public class ImgActivity extends BaseActivity<IImgView,ImgPresenter> implements 
         if(imgAdapter == null){
             imgAdapter = new ImgAdapter(this);
             imgAdapter.bindToRecyclerView(rcvImg);
+            imgAdapter.setEmptyView(R.layout.layout_empty_img,rcvImg);
         }
+    }
+
+    private void publishImg(){
+        if (getUploadList().isEmpty()){
+            T.showShort("先选择图片好不好？！");
+            return;
+        }
+        final EditDialog editDialog = new EditDialog(getActivityContext());
+        editDialog.setTitle("这篇文章的标题");
+        editDialog.setYesOnclickListener("确定", new EditDialog.onYesOnclickListener() {
+            @Override
+            public void onYesClick(String inputStr) {
+                if (TextUtils.isEmpty(inputStr)) {
+                    T.showShort("文章标题不能为空！");
+                } else {
+                    //让软键盘隐藏
+                    InputMethodManager imm = (InputMethodManager) getActivityContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(editDialog.getCurrentFocus().getApplicationWindowToken(), 0);
+                    editDialog.dismiss();
+                    presenter.upload(getUploadList(),inputStr);
+                }
+            }
+        });
+        editDialog.setNoOnclickListener("取消", new EditDialog.onNoOnclickListener() {
+            @Override
+            public void onNoClick() {
+                editDialog.dismiss();
+            }
+        });
+        editDialog.show();
     }
 
     private void openPickerActivity(){
@@ -86,7 +122,7 @@ public class ImgActivity extends BaseActivity<IImgView,ImgPresenter> implements 
                 openPickerActivity();
                 break;
             case R.id.btn_upload:
-                presenter.upload(getUploadList());
+                publishImg();
                 break;
         }
     }

@@ -9,5 +9,4 @@ import fun.qsong.autopublish.img.ImgListBean;
  */
 
 public interface IMain extends IMvpView{
-    void openGif(GifListBean gifListBeans);
 }

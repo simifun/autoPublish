@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity<IMain,MainPresenter> implements I
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.gif_btn:
-                presenter.getGifFormSina();
+                ActivityUtils.startActivity(GifActivity.class);
                 break;
             case R.id.img_btn:
                 ActivityUtils.startActivity(ImgActivity.class);
@@ -50,12 +50,5 @@ public class MainActivity extends BaseActivity<IMain,MainPresenter> implements I
     @Override
     public void onRunBack() {
         presenter.RunBack();
-    }
-
-    @Override
-    public void openGif(GifListBean gifListBeans) {
-        Intent intent = new Intent(this,GifActivity.class);
-        intent.putExtra("gifListBeans",gifListBeans);
-        ActivityUtils.startActivity(intent);
     }
 }
