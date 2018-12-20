@@ -4,20 +4,25 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import fun.qsong.autopublish.R;
 import fun.qsong.autopublish.base.BaseActivity;
+import fun.qsong.autopublish.view.cardswipelayout.CardItemTouchHelperCallback;
+import fun.qsong.autopublish.view.cardswipelayout.CardLayoutManager;
+import fun.qsong.autopublish.view.cardswipelayout.OnSwipeListener;
 import fun.qsong.utils.util.T;
-import me.yuqirong.cardswipelayout.CardItemTouchHelperCallback;
-import me.yuqirong.cardswipelayout.CardLayoutManager;
-import me.yuqirong.cardswipelayout.OnSwipeListener;
-
 
 public class GifActivity extends BaseActivity<IGifView, GifPresenter> implements IGifView {
-    //    WebView webView;
     GifAdapter gifAdapter;
     RecyclerView rcvGif;
     CardItemTouchHelperCallback cardCallback;
+    ItemTouchHelper touchHelper;
+    List<GifListBean.Gif> gifList = new ArrayList<>();
+    boolean isFirstLoad = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +30,6 @@ public class GifActivity extends BaseActivity<IGifView, GifPresenter> implements
         setContentView(R.layout.activity_gif);
         rcvGif = findViewById(R.id.rcv_gif);
 
-        rcvGif.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -39,35 +43,45 @@ public class GifActivity extends BaseActivity<IGifView, GifPresenter> implements
         if (gifAdapter == null) {
             gifAdapter = new GifAdapter(this);
             gifAdapter.bindToRecyclerView(rcvGif);
-            gifAdapter.setEmptyView(R.layout.layout_empty, rcvGif);
         }
         presenter.getGifFormSina();
     }
 
+
+
     @Override
     public void refresh(GifListBean gifListBean) {
-        cardCallback = new CardItemTouchHelperCallback(rcvGif.getAdapter(), gifListBean.data);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(cardCallback);
-        touchHelper.attachToRecyclerView(rcvGif);
+        if(gifList.size() == 0){
+            Log.e(TAG, "refresh: 0");
+            gifList.addAll(gifListBean.data);
+            cardCallback = new CardItemTouchHelperCallback(rcvGif.getAdapter(),gifList);
+            touchHelper = new ItemTouchHelper(cardCallback);
+            touchHelper.attachToRecyclerView(rcvGif);
+            rcvGif.setLayoutManager(new CardLayoutManager(rcvGif, touchHelper));
+            gifAdapter.setEmptyView(R.layout.layout_empty, rcvGif);
+            gifAdapter.setNewData(gifList);
+            cardCallback.setOnSwipedListener(new OnSwipeListener<GifListBean.Gif>() {
+                @Override
+                public void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction) {
+                }
 
-        CardLayoutManager cardLayoutManager = new CardLayoutManager(rcvGif, touchHelper);
-        rcvGif.setLayoutManager(cardLayoutManager);
-        cardCallback.setOnSwipedListener(new OnSwipeListener<GifListBean.Gif>() {
-            @Override
-            public void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction) {
-            }
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, GifListBean.Gif gif, int direction) {
+                }
 
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, GifListBean.Gif gif, int direction) {
-            }
+                @Override
+                public void onSwipedClear() {
+                }
 
-            @Override
-            public void onSwipedClear() {
-                T.showShort("???!!!");
-                presenter.getGifFormSina();
-            }
-        });
-
-        gifAdapter.setNewData(gifListBean.data);
+                @Override
+                public void onPreload() {
+                    presenter.getGifFormSina();
+                }
+            });
+        }else{
+            Log.e(TAG, "refresh: 1");
+            gifList.addAll(gifListBean.data);
+            rcvGif.getAdapter().notifyDataSetChanged();
+        }
     }
 }

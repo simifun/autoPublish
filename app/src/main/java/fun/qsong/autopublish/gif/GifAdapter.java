@@ -29,6 +29,8 @@ public class GifAdapter extends BaseQuickAdapter<GifListBean.Gif, BaseViewHolder
         Glide.with(activity)
                 .load(item.getImg_url())
                 .asGif()
+                .placeholder(R.mipmap.img_loading)
+                .error(R.mipmap.img_broken)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .crossFade()
                 .into(ivGif);

@@ -36,9 +36,8 @@ public class GifPresenter extends BasePresenter<IGifView> {
                 .subscribe(new Consumer<GifListBean>() {
                     @Override
                     public void accept(GifListBean gifListBean) throws Exception {
-                        Log.e(TAG, "accept: -->"+gifListBean);
+                        Log.d(TAG, "getGifFormSina success!!!!");
                         mIView.refresh(gifListBean);
-                        T.showShort("请求成功！");
                         page++;
                     }
                 }, new Consumer<Throwable>() {
