@@ -32,6 +32,8 @@ public class GifListBean implements Serializable{
         @SerializedName("img_url")
         private String img_url;
 
+        private boolean isBannser = false;
+
         public String getId() {
             return id;
         }
@@ -62,6 +64,14 @@ public class GifListBean implements Serializable{
 
         public void setImg_url(String img_url) {
             this.img_url = img_url;
+        }
+
+        public boolean isBannser() {
+            return isBannser;
+        }
+
+        public void setBannser(boolean bannser) {
+            isBannser = bannser;
         }
     }
 

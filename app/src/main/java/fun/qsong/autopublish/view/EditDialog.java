@@ -21,7 +21,7 @@ public class EditDialog extends Dialog {
     private TextView titleTv;//消息标题文本
     private EditText et_phone;//输入电话
     private String titleStr;//从外界设置的title文本
-    private String messageStr;//从外界设置的消息文本
+    private String messageStr = "";//从外界设置的消息文本
     //确定文本和取消文本的显示内容
     private String yesStr, noStr;
 
@@ -108,6 +108,7 @@ public class EditDialog extends Dialog {
         }
         if (messageStr != null) {
 //            messageTv.setText(messageStr);
+            et_phone.setHint(messageStr);
         }
         //如果设置按钮的文字
         if (yesStr != null) {
@@ -141,6 +142,10 @@ public class EditDialog extends Dialog {
      */
     public void setMessage(String message) {
         messageStr = message;
+    }
+
+    public String getMessage() {
+        return messageStr;
     }
 
     /**

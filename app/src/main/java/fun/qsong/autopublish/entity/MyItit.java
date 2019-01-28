@@ -1,4 +1,4 @@
-package fun.qsong.autopublish.img;
+package fun.qsong.autopublish.entity;
 
 import android.net.Uri;
 

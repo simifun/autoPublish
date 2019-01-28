@@ -1,6 +1,5 @@
-package fun.qsong.autopublish.img;
+package fun.qsong.autopublish.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

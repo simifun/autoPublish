@@ -1,4 +1,4 @@
-package fun.qsong.autopublish.gif;
+package fun.qsong.autopublish.video;
 
 import android.util.Log;
 
@@ -10,36 +10,15 @@ import fun.qsong.autopublish.retrofit.Query;
 import fun.qsong.utils.util.GsonUtils;
 import fun.qsong.utils.util.T;
 import io.reactivex.functions.Consumer;
-import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
-
-import static fun.qsong.autopublish.retrofit.Server.GIF_SINA;
 
 /**
  * Created by admin on 2018/12/17.
  */
 
-public class GifPresenter extends BasePresenter<IGifView> {
+public class VideoPresenter extends BasePresenter<IVideoView> {
     @Override
     protected void init() {
         context = mIView.getActivityContext();
-    }
-
-    public void getGifFormSina(int page,int num) {
-        RetrofitUrlManager.getInstance().putDomain("GIF_SINA", GIF_SINA);
-        Query.getInstance().getGifFromSina(page,num)
-                .subscribe(new Consumer<GifListBean>() {
-                    @Override
-                    public void accept(GifListBean gifListBean) throws Exception {
-                        Log.d(TAG, "getGifFormSina success!!!!");
-                        mIView.refresh(gifListBean);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.e(TAG, "throwable: -->"+throwable);
-                        T.showShort("请求失败！请检查网络！");
-                    }
-                });
     }
 
     //发布文章

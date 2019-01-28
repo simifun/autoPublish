@@ -1,6 +1,5 @@
-package fun.qsong.autopublish.img;
+package fun.qsong.autopublish.entity;
 
-import com.google.gson.JsonObject;
 
 /**
  * Created by admin on 2018/12/19.
@@ -10,9 +9,16 @@ public class Itit {
     private String imgId;
     private String text;
     private int tag;
+    private boolean isBannser = false;
 
     public Itit(String text, int tag) {
         this.imgId = "";
+        this.text = text;
+        this.tag = tag;
+    }
+
+    public Itit(String imgId, String text, int tag) {
+        this.imgId = imgId;
         this.text = text;
         this.tag = tag;
     }

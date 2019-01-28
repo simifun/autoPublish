@@ -3,22 +3,19 @@ package fun.qsong.autopublish.retrofit;
 
 import android.util.Log;
 
-import java.util.List;
-
 import fun.qsong.autopublish.gif.GifListBean;
-import fun.qsong.autopublish.img.Itit;
-import fun.qsong.autopublish.img.ReSponseItit;
+import fun.qsong.autopublish.entity.ReSponseItit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static fun.qsong.autopublish.retrofit.Server.GIF_SINA;
 import static fun.qsong.autopublish.retrofit.Server.MY_QSYX;
 
 

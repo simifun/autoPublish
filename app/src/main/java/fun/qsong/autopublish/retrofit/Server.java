@@ -1,16 +1,11 @@
 package fun.qsong.autopublish.retrofit;
 
 
-import java.util.List;
-
 import fun.qsong.autopublish.gif.GifListBean;
 import fun.qsong.autopublish.img.ImgListBean;
-import fun.qsong.autopublish.img.Itit;
-import fun.qsong.autopublish.img.ReSponseItit;
+import fun.qsong.autopublish.entity.ReSponseItit;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -27,7 +22,7 @@ import retrofit2.http.POST;
 public interface Server {
     String GIF_SINA ="http://interface.sina.cn/";
 //     String MY_QSYX = "http://192.168.0.100:8090/";
-    String MY_QSYX = "http://192.168.1.218:8090/";
+    String MY_QSYX = "http://qsong.fun/";
 
     /**
      * 从新浪GIF趣图获取gif图片信息
