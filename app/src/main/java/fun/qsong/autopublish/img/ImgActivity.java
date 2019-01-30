@@ -43,7 +43,7 @@ public class ImgActivity extends BaseActivity<IImgView, ImgPresenter> implements
     Button imgPickerBtn;
     Button imgUploadBtn;
     Button gifpickerBtn;
-    private String type = "图片";
+    private String type = "组图";
     List<Uri> mSelected = new ArrayList<>();
 
     @Override
@@ -135,7 +135,7 @@ public class ImgActivity extends BaseActivity<IImgView, ImgPresenter> implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_picker:
-                type = "图片";
+                type = "组图";
                 openPickerActivity(TYPE_IMG);
                 break;
             case R.id.btn_gif:
