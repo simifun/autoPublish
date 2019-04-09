@@ -22,7 +22,7 @@ import retrofit2.http.POST;
 public interface Server {
     String GIF_SINA ="http://interface.sina.cn/";
 //     String MY_QSYX = "http://192.168.0.100:8090/";
-    String MY_QSYX = "http://qsong.fun/";
+    String MY_QSYX = "http://120.24.76.122:8090/";
 
     /**
      * 从新浪GIF趣图获取gif图片信息
