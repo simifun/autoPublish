@@ -27,6 +27,7 @@
         <activity android:name=".gif.GifActivity"></activity>
         <activity android:name=".video.VideoActivity"></activity>
         <activity android:name=".web.WebActivity"></activity>
+        <activity android:name=".joke.JokeActivity"></activity>
     </application>
 
 </manifest>

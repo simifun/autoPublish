@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import fun.qsong.autopublish.gif.GifActivity;
 import fun.qsong.autopublish.img.ImgActivity;
+import fun.qsong.autopublish.joke.JokeActivity;
 import fun.qsong.autopublish.web.WebActivity;
 import fun.qsong.utils.util.ActivityUtils;
 
@@ -59,7 +60,7 @@ public class MainActivity extends BaseActivity<IMain,MainPresenter> implements I
                 T.showShort("该功能暂不开放，请使用web发布");
                 break;
             case R.id.dz_btn:
-                T.showShort("该功能暂不开放，请使用web发布");
+                ActivityUtils.startActivity(JokeActivity.class);
                 break;
             case R.id.notice_btn:
                 T.showShort("该功能暂不开放，请使用web发布");

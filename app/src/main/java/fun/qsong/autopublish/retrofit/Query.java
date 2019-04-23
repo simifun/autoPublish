@@ -3,8 +3,10 @@ package fun.qsong.autopublish.retrofit;
 
 import android.util.Log;
 
+import fun.qsong.autopublish.entity.ImgBean;
 import fun.qsong.autopublish.gif.GifListBean;
 import fun.qsong.autopublish.entity.ReSponseItit;
+import fun.qsong.autopublish.joke.JokeListBean;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -76,6 +78,27 @@ public class Query {
 
     public Observable<Object> postNewImgArticle(String itits,String title,String type) {
         return server.postNewImgArticle(itits,title,type)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io());
+    }
+
+    public Observable<Object> postNewDz(String img,String title,String content,String type,Boolean isshow) {
+        return server.postNewDz(img,title,content,type,isshow)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io());
+    }
+
+    public Observable<JokeListBean> getDz(String key, int ps) {
+        return server.getDz(key,ps)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io());
+    }
+
+    public Observable<ImgBean> getImg() {
+        return server.getImg()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io());
