@@ -60,7 +60,6 @@ public class JokeActivity extends BaseActivity<IJokeView, JokePresenter> impleme
             jokeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    T.showShort("嘤嘤嘤"+jokeList.get(position).getContent());
                     publicJoke(jokeList.get(position).getContent());
                 }
             });

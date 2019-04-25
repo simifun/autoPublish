@@ -49,6 +49,7 @@ public class JokePresenter extends BasePresenter<IJokeView> {
                     @Override
                     public void accept(ImgBean imgBean) throws Exception {
                         String imgUrl = imgBean.getImgurl().replace("large","orj360");
+                        imgUrl = imgUrl.replace("https","http");
                         mIView.refreshImg(imgUrl,imageView);
                     }
                 },new Consumer<Throwable>() {
