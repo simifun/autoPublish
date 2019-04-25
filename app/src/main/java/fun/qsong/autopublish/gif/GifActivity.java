@@ -85,7 +85,13 @@ public class GifActivity extends BaseActivity<IGifView, GifPresenter> implements
                     if(direction == CardConfig.SWIPING_LEFT){
 
                     }else{
-                        itits.add(new Itit(gif.getImg_url(),gif.getName(),tag++));
+                        String imgUrl = gif.getImg_url();
+                        if(imgUrl.contains("//")){
+                            if(!imgUrl.contains("http")){
+                                imgUrl += "http:";
+                            }
+                        }
+                        itits.add(new Itit(imgUrl,gif.getName(),tag++));
                         if(gif.isBannser()){
                             bannerIndex = itits.size()-1;
                         }

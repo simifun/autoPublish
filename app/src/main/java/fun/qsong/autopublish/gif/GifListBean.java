@@ -59,6 +59,13 @@ public class GifListBean implements Serializable{
         }
 
         public String getImg_url() {
+            if(img_url.contains("//")){
+                if(img_url.contains("http")){
+                    return img_url;
+                }else {
+                    return "http:"+img_url;
+                }
+            }
             return img_url;
         }
 
