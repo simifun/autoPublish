@@ -6,25 +6,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
+import android.support.annotation.RequiresApi;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.Toast;
 
 import fun.qsong.autopublish.R;
 import fun.qsong.autopublish.base.BaseActivity;
-import fun.qsong.autopublish.gif.GifActivity;
-import fun.qsong.autopublish.img.ImgActivity;
-import fun.qsong.autopublish.main.IMain;
 import fun.qsong.autopublish.main.MainActivity;
-import fun.qsong.autopublish.main.MainPresenter;
-import fun.qsong.utils.util.ActivityUtils;
-import fun.qsong.utils.util.T;
-
 
 public class WebActivity extends BaseActivity{
     WebView webView;
@@ -32,6 +24,7 @@ public class WebActivity extends BaseActivity{
     public ValueCallback<Uri[]> uploadMessage;
     public static final int REQUEST_SELECT_FILE = 100;
     private final static int FILECHOOSER_RESULTCODE = 2;
+    @RequiresApi(api = Build.VERSION_CODES.ECLAIR_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +41,7 @@ public class WebActivity extends BaseActivity{
         webView.setWebChromeClient(new WebChromeClient(){
             // For 3.0+ Devices (Start)
             // onActivityResult attached before constructor
+            @RequiresApi(api = Build.VERSION_CODES.ECLAIR_MR1)
             protected void openFileChooser(ValueCallback uploadMsg, String acceptType) {
                 mUploadMessage = uploadMsg;
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
@@ -103,9 +97,10 @@ public class WebActivity extends BaseActivity{
         webSettings.setAppCachePath(appCachePath);
         webSettings.setAllowFileAccess(true);    // 可以读取文件缓存
         webSettings.setAppCacheEnabled(true);    //开启H5(APPCache)缓存功能
-        webView.loadUrl("https://qsong.fun/static/console/cstype.html");
+        webView.loadUrl("http://120.24.76.122:8090/static/console/cstype.html");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.ECLAIR_MR1)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent)
     {
